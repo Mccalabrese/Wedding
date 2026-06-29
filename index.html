@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laureen & Michael - Wedding 2027</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================
+           COLOR PALETTE & DESIGN TOKENS
+           ========================================== */
+        :root {
+            --primary-green: #243e36;    /* Darker, richer forest green */
+            --primary-hover: #1b2e28;
+            --accent-gold: #c2a378;      /* Elegant warm gold */
+            --bg-light: #fbfaf8;         /* Softer off-white canvas */
+            --bg-card: #ffffff;          
+            --text-dark: #2c2c2c;        
+            --text-muted: #666666;       
+            --border-color: #e8e4de;     
+            --max-width: 1100px;
+            --font-display: 'Cinzel', serif;
+            --font-sans: 'Inter', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.02);
+            --shadow-md: 0 12px 24px rgba(0,0,0,0.06);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .nav-logo {
+            font-family: var(--font-display);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        a { color: var(--primary-green); text-decoration: none; transition: var(--transition); }
+        img { max-width: 100%; height: auto; display: block; border-radius: 6px; }
+
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
+        section { padding: 7rem 0; border-bottom: 1px solid var(--border-color); }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 3.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1.5px;
+            background-color: var(--accent-gold);
+            margin: 1.25rem auto 0;
+        }
+
+        /* ==========================================
+           NAVIGATION
+           ========================================== */
+        header {
+            background-color: rgba(251, 250, 248, 0.98);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 75px; }
+        .nav-logo { font-size: 1.4rem; color: var(--primary-green); font-weight: 600; letter-spacing: 0.1em; }
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; }
+        
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+        }
+        .nav-links a:hover { color: var(--accent-gold); }
+
+        /* ==========================================
+           HERO SECTION
+           ========================================== */
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background-color: #333; 
+            /* Add Yosemite image here */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('yosemite.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Faux parallax effect */
+            color: #ffffff;
+            border-bottom: none;
+        }
+
+        .hero-content { padding: 0 2rem; }
+        .hero-content h1 { font-size: 4.5rem; margin-bottom: 1rem; text-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .hero-subtitle { font-size: 1.6rem; margin-bottom: 2.5rem; letter-spacing: 0.25em; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+
+        .countdown {
+            display: inline-flex;
+            gap: 2rem;
+            background-color: rgba(36, 62, 54, 0.85);
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            backdrop-filter: blur(8px);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .countdown span { font-weight: 600; color: var(--accent-gold); }
+
+        /* ==========================================
+           GRID & CARDS
+           ========================================== */
+        .schedule-grid, .logistics-grid {
+            display: grid;
+            gap: 2.5rem;
+        }
+        .schedule-grid { grid-template-columns: 1fr 1fr; }
+        .logistics-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        
+        .card h3 { font-size: 1.4rem; color: var(--primary-green); margin-bottom: 1rem; }
+        .time { font-weight: 600; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+        
+        .logistics-card h3 { border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+        .logistics-card ul { list-style: none; }
+        .logistics-card li { margin-bottom: 1.2rem; }
+        .logistics-card strong { color: var(--text-dark); display: block; margin-bottom: 0.2rem; }
+        .logistics-card span { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* ==========================================
+           PHOTO GRID
+           ========================================== */
+        .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        .photo-item { aspect-ratio: 1 / 1; overflow: hidden; border-radius: 6px; box-shadow: var(--shadow-sm); }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .photo-item:hover img { transform: scale(1.05); }
+
+        /* ==========================================
+           RSVP FORM
+           ========================================== */
+        .rsvp-wrapper {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 4rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-group { margin-bottom: 2rem; }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #dcd7d0;
+            background-color: var(--bg-light);
+            border-radius: 4px;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(36, 62, 54, 0.1);
+        }
+
+        .radio-group { display: flex; gap: 2.5rem; margin-top: 0.5rem; }
+        .radio-option { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; font-weight: 500; }
+        .radio-option input { accent-color: var(--primary-green); transform: scale(1.2); }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-green);
+            color: #ffffff;
+            border: none;
+            padding: 1.25rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+        .btn-submit:hover:not(:disabled) { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+        .btn-submit:disabled { background-color: var(--text-muted); cursor: not-allowed; opacity: 0.7; }
+
+        .form-status { display: none; margin-top: 2rem; padding: 1.25rem; text-align: center; border-radius: 4px; font-weight: 500; border: 1px solid transparent; }
+        .form-status.success { display: block; background-color: #f2f7f4; color: #1e4634; border-color: #d1e2d9; }
+        .form-status.error { display: block; background-color: #fdf5f5; color: #c5221f; border-color: #fad2cf; }
+
+        /* ==========================================
+           FAQ ACCORDIONS
+           ========================================== */
+        .faq-wrapper { max-width: 800px; margin: 0 auto; }
+        .faq-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .faq-item:hover { box-shadow: var(--shadow-sm); }
+
+        .faq-trigger {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 1.5rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--primary-green);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-trigger::after { content: '+'; font-size: 1.5rem; color: var(--accent-gold); transition: transform 0.3s ease; }
+        .faq-item.active .faq-trigger::after { transform: rotate(45deg); }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            padding: 0 2rem;
+            color: var(--text-muted);
+        }
+        .faq-item.active .faq-content { max-height: 500px; padding: 0 2rem 2rem; }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        footer { background-color: var(--primary-green); color: #ffffff; text-align: center; padding: 5rem 0; }
+        footer p { font-family: var(--font-display); letter-spacing: 0.15em; font-size: 1.2rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 3rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .schedule-grid { grid-template-columns: 1fr; }
+            .rsvp-wrapper { padding: 2.5rem 1.5rem; }
+            section { padding: 4.5rem 0; }
+            .countdown { padding: 1rem 1.5rem; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <div class="nav-logo">L & M</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#schedule">Schedule</a></li>
+                    <li><a href="#rsvp">RSVP</a></li>
+                    <li><a href="#travel">Travel</a></li>
+                    <li><a href="#yosemite">Yosemite</a></li>
+                    <li><a href="#explore">Explore</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Laureen & Michael</h1>
+            <div class="hero-subtitle">June 25, 2027 • Yosemite National Park</div>
+            <div class="countdown" id="countdown-timer">Loading Timeline...</div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Gallery</h2>
+        <div class="photo-grid">
+            <div class="photo-item"><img src="photo1.jpg" alt="Gallery Image 1"></div>
+            <div class="photo-item"><img src="photo2.jpg" alt="Gallery Image 2"></div>
+            <div class="photo-item"><img src="photo3.jpg" alt="Gallery Image 3"></div>
+            <div class="photo-item"><img src="photo4.jpg" alt="Gallery Image 4"></div>
+        </div>
+    </section>
+
+    <section id="schedule" class="container">
+        <h2 class="section-title">The Day Of</h2>
+        <div class="schedule-grid">
+            <div class="card text-center">
+                <h3>The Ceremony</h3>
+                <div class="time">9:00 AM — 11:00 AM</div>
+                <p><strong>Glacier Point Amphitheater</strong></p>
+                <p style="color: var(--text-muted); margin-top: 0.75rem;">Please arrive early. Due to strict park capacity limits, our guest window is tightly constrained to 50 attendees.</p>
+            </div>
+            <div class="card text-center">
+                <h3>The Gathering</h3>
+                <div class="time">3:00 PM — 5:00 PM</div>
+                <p><strong>El Capitan Picnic Area</strong></p>
+                <p style="color: var(--text-muted); margin-top: 0.75rem;">Join us for a casual picnic potluck reception beneath the monolith. Bring your favorite structural travel snacks or refreshments.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="rsvp" class="container">
+        <h2 class="section-title">RSVP</h2>
+        <div class="rsvp-wrapper">
+            <form id="wedding-rsvp-form">
+                <div class="form-group">
+                    <label for="guest-name">Full Name</label>
+                    <input type="text" id="guest-name" name="name" class="form-control" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="guest-email">Email Address</label>
+                    <input type="email" id="guest-email" name="email" class="form-control" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label>Will you be attending?</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="attendance" value="Accepts with pleasure" required> Accept with pleasure</label>
+                        <label class="radio-option"><input type="radio" name="attendance" value="Declines with regret"> Decline with regret</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="guest-notes">Dietary Restrictions / Technical Notes</label>
+                    <textarea id="guest-notes" name="notes" class="form-control" rows="3" placeholder="Let us know if you have any allergies or questions..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit" id="submit-button">Submit Response</button>
+                <div id="form-alert" class="form-status"></div>
+            </form>
+        </div>
+    </section>
+
+    <section id="travel" class="container">
+        <h2 class="section-title">Travel & Lodging</h2>
+        <div class="logistics-grid">
+            <div class="card logistics-card">
+                <h3>✈️ Closest Airports</h3>
+                <ul>
+                    <li><strong>Fresno Yosemite (FAT)</strong> <span>~2.5 hours to Valley floor. Most convenient access vector.</span></li>
+                    <li><strong>San Francisco (SFO)</strong> <span>~4 hours to Valley floor. Best international flight options.</span></li>
+                    <li><strong>Oakland (OAK)</strong> <span>~3.5 hours to Valley floor. Less congested traffic pattern.</span></li>
+                    <li><strong>Sacramento (SMF)</strong> <span>~3.5 hours to Valley floor. Alternative northern path.</span></li>
+                </ul>
+            </div>
+            <div class="card logistics-card">
+                <h3>🏨 Lodging Baselines</h3>
+                <ul>
+                    <li><strong>Inside the Park:</strong> <span>The Ahwahnee, Yosemite Valley Lodge, or Wawona Hotel. High cost bounds, zero commute overhead. Book immediately.</span></li>
+                    <li><strong>Outside the Park (Mariposa):</strong> <span>The sweet spot for economic hotels and cabins. Scalable options.</span></li>
+                    <li><strong>Transit Latencies:</strong><br>• Mariposa to Glacier Point: ~1 hr 20 min<br>• Mariposa to El Capitan Picnic: ~1 hr</li>
+                </ul>
+            </div>
+            <div class="card logistics-card">
+                <h3>🚗 Navigation Vectors</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Cell service drops to near-zero once inside the granite portals. Download offline Google Maps vectors for the entire region before departing.</p>
+                <p><strong>GPS Coordinates:</strong></p>
+                <span>Glacier Point: 37.7280° N, 119.5731° W<br>El Cap Picnic: 37.7244° N, 119.6353° W</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="yosemite" class="container">
+        <h2 class="section-title">Park Checklist</h2>
+        <div class="logistics-grid">
+            <div class="card logistics-card">
+                <h3>🌲 Entry Regulations</h3>
+                <p style="color: var(--text-muted);">Yosemite requires Peak Hours Plus Reservations during high-demand summer windows. Ensure you check the official NPS gateway to verify system passes for your exact arrival window.</p>
+            </div>
+            <div class="card logistics-card">
+                <h3>👟 What to Pack</h3>
+                <ul>
+                    <li>• Sturdy structural shoes / trail runners</li>
+                    <li>• Layered apparel for microclimates</li>
+                    <li>• High-efficiency sunscreen & UV shields</li>
+                    <li>• Refillable hydration hardware</li>
+                </ul>
+            </div>
+            <div class="card logistics-card">
+                <h3>🌦️ Expected Climate</h3>
+                <p style="color: var(--text-muted);">Late June weather transitions rapidly. Valley floors scale between 80°F–90°F. High elevations like Glacier Point chill significantly, lingering near 50°F–60°F early in the morning.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="explore" class="container">
+        <h2 class="section-title">Make a Weekend of It</h2>
+        <p style="text-align: center; max-width: 700px; margin: -1.5rem auto 3.5rem; color: var(--text-muted);">
+            For those extending their operations into a mini-vacation, prioritize these high-value geographic nodes within the park bounds:
+        </p>
+        <div class="logistics-grid">
+            <div class="card logistics-card">
+                <h3>📍 Valley & Tunnel View</h3>
+                <p style="color: var(--text-muted);">The definitive structural landscape overview. Optimal photography window occurs at sunset when light breaks cleanly across El Capitan and Half Dome.</p>
+            </div>
+            <div class="card logistics-card">
+                <h3>📍 Glacier Point & Bridalveil</h3>
+                <p style="color: var(--text-muted);">Glacier Point drops a sheer 3,200-foot visualization directly down to the valley base. Bridalveil is easily accessible via a brief, high-throughput walking path.</p>
+            </div>
+            <div class="card logistics-card">
+                <h3>📍 Mariposa Grove</h3>
+                <p style="color: var(--text-muted);">Located near the south portal. Home to more than 500 mature giant sequoias. An elite option for low-impact foot transit through ancient ecosystems.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-wrapper">
+            <div class="faq-item">
+                <button class="faq-trigger">What is the status of cell connectivity?</button>
+                <div class="faq-content">
+                    <p>Highly fragmented. Expect localized structural dead-zones across the entire park landscape. Signal existence is localized strictly to small pockets within Yosemite Village. Plan accordingly by caching travel documents locally.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-trigger">How should we handle wildlife interactions?</button>
+                <div class="faq-content">
+                    <p>Yosemite is active black bear territory. Absolute compliance with park storage rules is mandatory. Never leave food, scented items, or trash inside a vehicle container during daylight or overnight windows.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-trigger">What is the parking and shuttle protocol?</button>
+                <div class="faq-content">
+                    <p>Parking matrices fill to capacity by 9:00 AM daily. We highly recommend utilizing the free Yosemite Valley Shuttle system to transition between points once you've parked your vehicle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Laureen & Michael • June 25, 2027</p>
+            <span style="font-size: 0.85rem; opacity: 0.7; display: block; margin-top: 1rem; font-weight: 300;">See you in the valley.</span>
+        </div>
+    </footer>
+
+    <script>
+        // COUNTDOWN TIMER
+        function runCountdownEngine() {
+            const targetDate = new Date("June 25, 2027 09:00:00").getTime();
+            const displayContainer = document.getElementById("countdown-timer");
+
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const delta = targetDate - now;
+
+                if (delta < 0) {
+                    clearInterval(interval);
+                    displayContainer.innerHTML = "The Adventure Begins";
+                    return;
+                }
+
+                const days = Math.floor(delta / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+
+                displayContainer.innerHTML = `${days}<span>d</span> ${hours}<span>h</span> ${minutes}<span>m</span>`;
+            }, 1000);
+        }
+
+        // FAQ ACCORDIONS
+        function initializeFaqAccordions() {
+            document.querySelectorAll('.faq-trigger').forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const parent = trigger.parentElement;
+                    const isActive = parent.classList.contains('active');
+                    document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+                    if (!isActive) parent.classList.add('active');
+                });
+            });
+        }
+
+        // GOOGLE APPS SCRIPT WEBHOOK POST HANDLER
+        function initializeRsvpForm() {
+            const form = document.getElementById('wedding-rsvp-form');
+            const alertBox = document.getElementById('form-alert');
+            const submitBtn = document.getElementById('submit-button');
+            
+            // =========================================================================
+            // INSERT YOUR GOOGLE APPS SCRIPT WEB APP URL HERE:
+            // =========================================================================
+            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoBnu4bWlUjAOuszRfJuQHnQgMygtVJQhItXPZXLAqkKCqvmYaxgPupCh67ZdXLOoa/exec"; 
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // UI Loading State
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.innerText = "Transmitting RSVP...";
+                submitBtn.disabled = true;
+                alertBox.style.display = "none";
+                
+                // Fetch uses FormData to emulate a standard URL-encoded form submission
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    
+                    alertBox.className = "form-status success";
+                    alertBox.innerText = "RSVP successfully secured. We look forward to seeing you!";
+                    form.reset();
+                })
+                .catch(error => {
+                    alertBox.className = "form-status error";
+                    alertBox.innerText = "A transmission error occurred. Please try again later or contact us directly.";
+                    console.error("Transmission Error:", error);
+                })
+                .finally(() => {
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            runCountdownEngine();
+            initializeFaqAccordions();
+            initializeRsvpForm();
+        });
+    </script>
+</body>
+</html>
